@@ -35,14 +35,15 @@ namespace pruebas
             // reproductor1
             // 
             this.reproductor1.ColorComponente = System.Drawing.Color.Black;
-            this.reproductor1.LargoLinea = 300;
-            this.reproductor1.Location = new System.Drawing.Point(211, 245);
+            this.reproductor1.LargoLinea = 250;
+            this.reproductor1.Location = new System.Drawing.Point(149, 208);
             this.reproductor1.Name = "reproductor1";
             this.reproductor1.PausePlay = true;
-            this.reproductor1.Size = new System.Drawing.Size(332, 62);
+            this.reproductor1.Size = new System.Drawing.Size(284, 56);
             this.reproductor1.TabIndex = 0;
             this.reproductor1.Text = "reproductor1";
-            this.reproductor1.ClickEnPuse += new System.EventHandler(this.reproductor1_ClickEnPuse);
+            this.reproductor1.Xx = 0;
+            this.reproductor1.Yy = 0;
             // 
             // Form1
             // 
