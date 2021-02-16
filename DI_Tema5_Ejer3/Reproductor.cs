@@ -66,7 +66,7 @@ namespace DI_Tema5_Ejer3
                 {
                     largoLinea = value;
                 }
-
+                Refresh();
             }
             get
             {
@@ -90,6 +90,7 @@ namespace DI_Tema5_Ejer3
             {
                 return pausePlay;
             }
+
         }
 
         //XX ******************************************
@@ -103,11 +104,14 @@ namespace DI_Tema5_Ejer3
                 if (value > 99 || value < 0)
                 {
                     xx = 0;
+                    this.Refresh();
                 }
                 else
                 {
                     xx = value;
                 }
+                Refresh();
+
             }
             get
             {
@@ -125,16 +129,23 @@ namespace DI_Tema5_Ejer3
             {
                 if (value > 59)
                 {
-                    xx = 0;
+                    yy = value % 60;
+                    DesbordaTiempo?.Invoke(this, EventArgs.Empty);
+                    
+                }
+                else if (value < 0)
+                {
+                    yy = 0;
                 }
                 else
                 {
-                    xx = value;
+                    yy = value;
                 }
+                this.Refresh();
             }
             get
             {
-                return xx;
+                return yy;
             }
         }
         /**
@@ -149,7 +160,7 @@ namespace DI_Tema5_Ejer3
         public event System.EventHandler ClickEnPuse;
         protected override void OnMouseClick(MouseEventArgs e)
         {
-            if (e.X >= (135 * largoLinea) / predeterminado && e.X <= (150 * largoLinea) / predeterminado
+            if (e.X >= (130 * largoLinea) / predeterminado && e.X <= (150 * largoLinea) / predeterminado
                 && e.Y >= (20 * largoLinea) / predeterminado && e.Y <= (40 * largoLinea) / predeterminado)
             {
                 ClickEnPuse?.Invoke(this, EventArgs.Empty);
@@ -182,6 +193,8 @@ namespace DI_Tema5_Ejer3
 
 
             Pen pen = new Pen(ColorComponente, grosor);
+            SolidBrush pincelRelleno = new SolidBrush(colorComponente);
+
             pen.StartCap = LineCap.Round;
             pen.EndCap = LineCap.Round;
 
@@ -201,7 +214,7 @@ namespace DI_Tema5_Ejer3
             else
             {
 
-                SolidBrush pincelRelleno = new SolidBrush(colorComponente);
+                
                 //play 
                 Point[] triangle = new Point[] {
                     new Point((130 * largoLinea )/ predeterminado ,(20 * largoLinea )/ predeterminado),
@@ -209,8 +222,14 @@ namespace DI_Tema5_Ejer3
                     new Point((130 * largoLinea )/ predeterminado,(40* largoLinea )/ predeterminado)
                 };
                 g.FillPolygon(pincelRelleno, triangle);
+                
             }
+            String text = String.Format("{0:00}:{1:00}",xx,yy);
+            g.DrawString(text, this.Font, pincelRelleno, new Point((220 * largoLinea) / predeterminado, (20 * largoLinea) / predeterminado));
 
+            pincelRelleno.Dispose();
+            pen.Dispose();
+            
         }
     }
 }
